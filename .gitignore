@@ -1,0 +1,10 @@
+# funny macos thing
+.DS_Store
+
+# Ignore nixos build outputs
+result*
+.direnv/
+
+# Git config files with potential secrets
+.gitconfig
+.config/micro/buffers/*

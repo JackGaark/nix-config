@@ -1,0 +1,24 @@
+- 📚 [docs](https://github.com/isabelroses/dotfiles/tree/main/docs/) The documentation for the dotfiles
+- 🏠 [home](https://github.com/isabelroses/dotfiles/tree/main/home/) Where all home-manager configurations lie
+- 🖥️ [systems](https://github.com/isabelroses/dotfiles/tree/main/systems/)
+  - ☀️ [Amaterasu](https://github.com/isabelroses/dotfiles/tree/main/systems/amaterasu/) My high-end gaming machine
+  - 🏡 [Cottage](https://github.com/isabelroses/dotfiles/tree/main/systems/cottage/) A Lowend laptop, its not great but it gets the job done
+  - 🐉 [Hydra](https://github.com/isabelroses/dotfiles/tree/main/systems/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](https://github.com/isabelroses/dotfiles/tree/main/systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
+  - ⚖️ [minerva](https://github.com/isabelroses/dotfiles/tree/main/systems/minerva/) A server configuration for some of my infrastructure
+  - 𖤍 [Valkyrie](https://github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 system, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](https://github.com/isabelroses/dotfiles/tree/main/systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
+  - ✨ [wisp](https://github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 system, on cottage
+- 🔌 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/)
+  - [base](https://github.com/isabelroses/dotfiles/tree/main/modules/base/) The base configuration settings, which are common between all systems
+  - [darwin](https://github.com/isabelroses/dotfiles/tree/main/modules/darwin/) Pre-made modules for exclusively darwin systems
+  - [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) Pre cooked modules for exclusively nixos systems
+  - [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) Pre-configured modules prepared for making NixOS iso images
+  - [extra](https://github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
+  - [home](https://github/isabelroses/dotfiles/tree/main/modules/home/) Modules for home-manager
+  - [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+    - ✅ [checks](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/checks/) Checks for the flake
+    - 📚 [lib](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
+    - 📦 [packages](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/packages.nix) Packages that are not available in the official Nixpkgs
+    - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
+    - 💾 [programs](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/programs) Additional flake-modules to configure
