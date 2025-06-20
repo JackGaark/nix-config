@@ -4,7 +4,8 @@ let
   hasCtp = config ? catppuccin && config.catppuccin.enable;
 in
 {
-  tgirlpkgs.cache.enable = true;
+  # Temporarily disabled until tgirlpkgs is added back to flake
+  # tgirlpkgs.cache.enable = true;
 
   # substituters to use
   nix.settings = {

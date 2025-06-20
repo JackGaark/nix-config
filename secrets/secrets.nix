@@ -2,6 +2,7 @@ let
   users = {
     isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2";
     robin = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKxTuK2A7wbXnjkIhDrze4B5Uj2rnpmPAWGjPDMPiyk";
+    jack = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAECxvJM+CyBoPNtVcNZodtJuxUqPiZLEyfUI+pI5clv jack.gaarkeuken@gmail.com";
   };
 
   hosts = {
@@ -76,6 +77,7 @@ let
 
   defAccessIsabel = list: defAccess list [ "isabel" ];
   defAccessRobin = list: defAccess list [ "robin" ];
+  defAccessJack = list: defAccess list [ "jack" ];
   defAccessAll = list: defAccess list (builtins.attrNames users);
 in
 {

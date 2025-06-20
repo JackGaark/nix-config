@@ -1,7 +1,6 @@
 {
   imports = [
     ../generic
-    ../../home
     ./nix
     ./nixpkgs
     ./system

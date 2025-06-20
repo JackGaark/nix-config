@@ -8,8 +8,13 @@ let
 in
 {
   config = mkIf (elem "jack" config.garden.system.users) {
-    users.users.jack.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2"
-    ];
+    users.users.jack = {
+      isNormalUser = true;
+      group = "jack";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAECxvJM+CyBoPNtVcNZodtJuxUqPiZLEyfUI+pI5clv jack.gaarkeuken@gmail.com"
+      ];
+    };
+    users.groups.jack = {};
   };
 }

@@ -10,12 +10,12 @@ in
 {
   age.secrets = {
     wakatime = mkUserSecret {
-      file = "isabel/wakatime";
+      file = "jack/wakatime"; # <-- changed
       path = configHome + "/wakatime/.wakatime.cfg";
     };
 
     nix-auth-tokens = mkUserSecret {
-      file = "isabel/nix-auth-tokens";
+      file = "jack/nix-auth-tokens"; # <-- changed
     };
 
     # git ssh keys

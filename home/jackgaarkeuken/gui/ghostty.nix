@@ -17,7 +17,7 @@ in
     package = if pkgs.stdenv.hostPlatform.isLinux then cfg.package else null;
 
     settings = {
-      command = "/etc/profiles/per-user/jack/bin/fish --login";
+      command = "/etc/profiles/per-user/jackgaarkeuken/bin/fish --login";
 
       theme = mkForce "cuddlefish";
 

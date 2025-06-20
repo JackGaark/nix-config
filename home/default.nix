@@ -17,9 +17,23 @@ in
     useGlobalPkgs = true;
     backupFileExtension = "bak";
 
-    users = genAttrs config.garden.system.users (name: {
-      imports = [ ./${name} ];
-    });
+    users =
+      # For the jack system, we explicitly only want to configure jackgaarkeuken
+      # Ignore any other users that might be in the default list
+      if config.networking.hostName == "jack" then {
+        jackgaarkeuken = {
+          imports = [ ./jackgaarkeuken ];
+        };
+      } else
+        # For other systems, use the normal behavior
+        let
+          availableUsers = builtins.filter (user:
+            builtins.pathExists (./. + "/${user}")
+          ) config.garden.system.users;
+        in
+        genAttrs availableUsers (name: {
+          imports = [ ./${name} ];
+        });
 
     extraSpecialArgs = {
       inherit
@@ -30,7 +44,7 @@ in
         ;
     };
 
-    # we should define grauntied common modules here
-    sharedModules = [ (self + /modules/home/default.nix) ];
+    # Temporarily disabled to avoid circular dependency
+    # sharedModules = [ ../modules/home/default.nix ];
   };
 }
