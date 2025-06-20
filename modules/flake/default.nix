@@ -1,12 +1,7 @@
 {
   imports = [
-    ./programs
-    ./packages
-    ./checks
+    ./args.nix
+    ./programs/formatter.nix
+    # add other flake-parts modules only — NOT darwinConfigurations here!
   ];
-
-  flake = { config, inputs, ... }: {
-    # Remove the duplicate darwinConfigurations definition
-    # The main flake.nix already defines darwinConfigurations.jack
-  };
 }
