@@ -31,6 +31,12 @@
         class = "darwin";
       };
 
+      # jack's hosts
+      jack = {
+        arch = "aarch64";
+        class = "darwin";
+      };
+
       valkyrie = {
         class = "wsl";
       };
