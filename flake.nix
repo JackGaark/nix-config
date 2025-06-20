@@ -1,5 +1,5 @@
 {
-  description = "Jack's dotfiles (Home Manager + devShell + Darwin config)";
+  description = "Jack's dotfiles (Darwin + Home Manager + devShell)";
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
@@ -11,17 +11,17 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    home-manager = {
-      type = "github";
-      owner = "nix-community";
-      repo = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     darwin = {
       type = "github";
       owner = "LnL7";
       repo = "nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -69,22 +69,29 @@
 
   outputs = inputs:
     let
-      flake = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-        # ✅ Correct place for `systems`!
+      base = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
         systems = [ "aarch64-darwin" ];
         imports = [ ./modules/flake ];
       };
     in
-    flake // {
-      darwinConfigurations.jack = inputs.darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [
-          ./modules/base
-          inputs.home-manager.darwinModules.home-manager
-          {
-            home-manager.users.jackgaarkeuken = import ./home/jackgaarkeuken;
-          }
-        ];
+    # 🚀 This is the key: merge base + manual darwinConfigurations
+    {
+      # Everything flake-parts gives you:
+      inherit (base) packages checks overlays devShells formatter;
+
+      # PLUS your Darwin host:
+      darwinConfigurations = {
+        jack = inputs.darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            ./modules/base
+            inputs.home-manager.darwinModules.home-manager
+            {
+              _module.args.inputs = inputs;
+              home-manager.users.jackgaarkeuken = import ./home/jackgaarkeuken;
+            }
+          ];
+        };
       };
     };
 }
