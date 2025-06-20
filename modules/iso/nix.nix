@@ -2,7 +2,7 @@
 {
   nix = {
     # setting nix to be our preferred fork
-    package = self'.packages.lix;
+    package = pkgs.nix;
 
     # we can disable channels since we can just use the flake
     channel.enable = false;

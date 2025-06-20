@@ -1,5 +1,5 @@
 {
-  description = "Jack's dotfiles — nix-darwin + Home Manager, no hosts.";
+  description = "Jack's dotfiles (Home Manager + devShell + Darwin config)";
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
@@ -67,29 +67,25 @@
     };
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    imports = [ ./modules/flake ];
-
-    flake = { config, ... }: {
+  outputs = inputs:
+    let
+      flake = inputs.flake-parts.lib.mkFlake {
+        inherit inputs;
+        systems = [ "aarch64-darwin" ]; # ✅ This line fixes 'systems' undefined
+      } {
+        imports = [ ./modules/flake ];
+      };
+    in
+    flake // {
       darwinConfigurations.jack = inputs.darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-
         modules = [
           ./modules/base
           inputs.home-manager.darwinModules.home-manager
-
           {
-            # Make sure Home Manager uses same pkgs as system
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
-            };
-
             home-manager.users.jackgaarkeuken = import ./home/jackgaarkeuken;
           }
         ];
       };
     };
-  };
 }
