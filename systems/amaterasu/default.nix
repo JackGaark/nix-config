@@ -25,6 +25,8 @@
     programs.cosmic.enable = true;
 
     system = {
+      users = [ "jack" ];
+
       boot = {
         loader = "systemd-boot";
         secureBoot = true;
