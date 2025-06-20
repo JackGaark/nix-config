@@ -1,17 +1,14 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ config, ... }:
 let
-  inherit (lib) optionalString;
-
-  cfg = config.garden.programs.fish;
+  # Set fish config directly instead of using config.garden.programs.fish
+  cfg = {
+    enable = true;
+    package = null; # Use default package
+  };
 in
 {
   programs.fish = {
-    inherit (cfg) enable package;
+    inherit (cfg) enable;
 
     plugins = [ ];
 
@@ -30,8 +27,8 @@ in
       '';
     };
 
-    loginShellInit = optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin 
+    loginShellInit = ''
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin
     '';
 
     shellInit = ''

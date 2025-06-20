@@ -5,11 +5,12 @@
     inputs.izvim.homeModules.default
   ];
 
-  garden.programs.neovim.enable = lib.mkForce false;
+  # Disable neovim for now
+  # garden.programs.neovim.enable = lib.mkForce false;
 
   programs.izvim = {
     enable = true;
-    includePerLanguageTooling = config.garden.profiles.workstation.enable or false;
-    gui.enable = config.garden.profiles.graphical.enable or false;
+    includePerLanguageTooling = false; # config.garden.profiles.workstation.enable or false;
+    gui.enable = true; # config.garden.profiles.graphical.enable or false;
   };
 }

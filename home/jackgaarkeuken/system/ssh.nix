@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.age) secrets;
+  # inherit (config.age) secrets;
 in
 {
   programs.ssh = {
@@ -8,22 +8,23 @@ in
     hashKnownHosts = true;
     compression = true;
 
-    includes = [
-      secrets.uni-ssh.path
-    ];
+    # Age secrets are managed at system level, not in Home Manager
+    # includes = [
+    #   secrets.uni-ssh.path
+    # ];
 
     matchBlocks = {
       # git clients
       "aur.archlinux.org" = {
         user = "aur";
         hostname = "aur.archlinux.org";
-        identityFile = secrets.keys-aur.path;
+        # identityFile = secrets.keys-aur.path;
       };
 
       "github.com" = {
         user = "git";
         hostname = "github.com";
-        identityFile = secrets.keys-gh.path;
+        # identityFile = secrets.keys-gh.path;
       };
 
       "gitlab.com" = {
@@ -46,12 +47,12 @@ in
       "openvpn" = {
         hostname = "132.145.55.42";
         user = "openvpnas";
-        identityFile = secrets.keys-openvpn.path;
+        # identityFile = secrets.keys-openvpn.path;
       };
 
       "amity" = {
         hostname = "143.47.240.116";
-        identityFile = secrets.keys-amity.path;
+        # identityFile = secrets.keys-amity.path;
       };
 
       "skadi".hostname = "141.147.73.185";

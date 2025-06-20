@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.atuin = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
 
     flags = [ "--disable-up-arrow" ];
     settings = {

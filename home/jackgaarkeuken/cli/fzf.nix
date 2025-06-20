@@ -9,7 +9,7 @@ let
 in
 {
   programs.fzf = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
 
     colors = {
       fg = "#cdd6f4";

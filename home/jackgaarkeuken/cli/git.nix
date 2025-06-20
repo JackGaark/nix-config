@@ -1,29 +1,32 @@
 {
   lib,
   pkgs,
-  self,
   config,
   ...
 }:
 let
   inherit (lib) mkIf mkMerge map;
   inherit (lib.hm.dag) entryBefore;
-  inherit (self.lib) giturl;
+  # inherit (self.lib) giturl;
 
-  cfg = config.garden.programs.git;
+  # Set git config directly instead of using config.garden.programs.git
+  cfg = {
+    enable = true;
+    package = pkgs.git;
+    signingKey = "jack@jackroses.com";
+  };
 in
 {
   config = mkIf cfg.enable (mkMerge [
-    (mkIf config.garden.profiles.workstation.enable {
-      garden.packages = {
-        inherit (pkgs)
-          # gist # manage github gists
-          # act # local github actions - littrally does not work
-          # gitflow # Extend git with the Gitflow branching model
-          cocogitto # git helpers
-          ;
-      };
-    })
+    # Enable workstation packages by default
+    {
+      home.packages = with pkgs; [
+        # gist # manage github gists
+        # act # local github actions - littrally does not work
+        # gitflow # Extend git with the Gitflow branching model
+        cocogitto # git helpers
+      ];
+    }
 
     # `programs.git` will generate the config file: ~/.config/git/config
     # to make git use this config file, `~/.gitconfig` should not exist!
@@ -43,14 +46,15 @@ in
         userEmail = "jack" + "@" + "jackroses" + "." + "com"; # obsfuscate email to prevent webscrapper spam
 
         includes = [
-          {
-            condition = "gitdir:~/dev/uni/";
-            inherit (config.age.secrets."uni-gitconf") path;
-          }
-          {
-            condition = "gitdir:~/Dev/uni/";
-            inherit (config.age.secrets."uni-gitconf") path;
-          }
+          # Age secrets are managed at system level, not in Home Manager
+          # {
+          #   condition = "gitdir:~/dev/uni/";
+          #   inherit (config.age.secrets."uni-gitconf") path;
+          # }
+          # {
+          #   condition = "gitdir:~/Dev/uni/";
+          #   inherit (config.age.secrets."uni-gitconf") path;
+          # }
         ];
 
         lfs = {
@@ -193,41 +197,42 @@ in
           fetch.fsckObjects = true;
           receive.fsckObjects = true;
 
-          url = mkMerge (
-            map giturl [
-              {
-                domain = "github.com";
-                alias = "github";
-              }
-              {
-                domain = "gitlab.com";
-                alias = "gitlab";
-              }
-              {
-                domain = "aur.archlinux.org";
-                alias = "aur";
-                user = "aur";
-              }
-              {
-                domain = "git.sr.ht";
-                alias = "srht";
-              }
-              {
-                domain = "codeberg.org";
-                alias = "codeberg";
-              }
-              {
-                domain = "git.jackroses.com";
-                alias = "me";
-                port = 2222;
-              }
-              {
-                domain = "git.auxolotl.org";
-                alias = "aux";
-                user = "forgejo";
-              }
-            ]
-          );
+          # Remove giturl usage for now
+          # url = mkMerge (
+          #   map giturl [
+          #     {
+          #       domain = "github.com";
+          #       alias = "github";
+          #     }
+          #     {
+          #       domain = "gitlab.com";
+          #       alias = "gitlab";
+          #     }
+          #     {
+          #       domain = "aur.archlinux.org";
+          #       alias = "aur";
+          #       user = "aur";
+          #     }
+          #     {
+          #       domain = "git.sr.ht";
+          #       alias = "srht";
+          #     }
+          #     {
+          #       domain = "codeberg.org";
+          #       alias = "codeberg";
+          #     }
+          #     {
+          #       domain = "git.jackroses.com";
+          #       alias = "me";
+          #       port = 2222;
+          #     }
+          #     {
+          #       domain = "git.auxolotl.org";
+          #       alias = "aux";
+          #       user = "forgejo";
+          #     }
+          #   ]
+          # );
         };
       };
     }

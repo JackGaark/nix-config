@@ -1,4 +1,4 @@
 { config, ... }:
 {
-  programs.lazygit.enable = config.garden.profiles.workstation.enable;
+  programs.lazygit.enable = true;
 }

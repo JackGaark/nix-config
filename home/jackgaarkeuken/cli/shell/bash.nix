@@ -1,7 +1,14 @@
 { config, ... }:
+let
+  # Set bash config directly instead of using config.garden.programs.bash
+  cfg = {
+    enable = false; # Disable bash by default
+    package = null;
+  };
+in
 {
   programs.bash = {
-    inherit (config.garden.programs.bash) enable package;
+    inherit (cfg) enable package;
     enableCompletion = true;
 
     historyFile = "${config.xdg.stateHome}/bash/history";

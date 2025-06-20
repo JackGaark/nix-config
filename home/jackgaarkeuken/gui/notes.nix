@@ -7,23 +7,15 @@
 let
   inherit (lib) attrValues;
 
-  inherit (config.garden.programs) defaults;
+  # Set defaults directly instead of using garden.programs
+  defaults = {
+    editor = "nvim";
+    shell = "fish";
+    terminal = "ghostty";
+  };
 in
 {
   config = {
-    garden.programs = {
-      obsidian.runtimeInputs = attrValues {
-        inherit (pkgs)
-          # for the pandoc plugin
-          pandoc
-
-          # for the obsidian-git plugin
-          gitMinimal
-          git-lfs
-          ;
-      };
-    };
-
     programs.zk.settings = {
       note = {
         # The default title used for new note, if no `--title` flag is provided.

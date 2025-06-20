@@ -8,4 +8,6 @@
     ./tui # terminal interface app confurations
     ./packages.nix # a top-level list of packages
   ];
+
+  home.stateVersion = "24.11";
 }

@@ -1,8 +1,13 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   # pointer / cursor theming
   home.pointerCursor = {
-    enable = pkgs.stdenv.hostPlatform.isLinux && config.garden.profiles.graphical.enable;
+    enable = pkgs.stdenv.hostPlatform.isLinux && true;
     size = 24;
     dotIcons.enable = false;
     gtk.enable = true;

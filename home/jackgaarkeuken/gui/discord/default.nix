@@ -10,9 +10,9 @@ let
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   mkLink = config.lib.file.mkOutOfStoreSymlink;
+  flakePath = "/Users/jackgaarkeuken/nix-config";
   vencordSettings = "${flakePath}/home/${username}/packages/gui/discord/vencord.json";
 
-  inherit (osConfig.garden.environment) flakePath;
   inherit (config.home) username;
 
   importToJSON = file: builtins.toJSON (import file);
@@ -20,14 +20,20 @@ let
   settings = importToJSON ./settings.nix;
   moonlightSettings = importToJSON ./moonlight.nix;
 
-  cfg = config.garden.programs.discord;
+  cfg = {
+    enable = true;
+    package = pkgs.discord;
+    withMoonlight = true;
+    withVencord = false;
+  };
 in
 {
   config = mkIf cfg.enable (mkMerge [
     {
-      garden.programs.discord = {
-        withMoonlight = true;
-      };
+      # Remove garden.programs.discord dependency
+      # garden.programs.discord = {
+      #   withMoonlight = true;
+      # };
     }
 
     (mkIf isLinux {

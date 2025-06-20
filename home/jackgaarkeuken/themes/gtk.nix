@@ -6,78 +6,79 @@
 }:
 let
   inherit (lib) mkIf;
-  cfg = config.garden.style;
+  # cfg = config.garden.style;
 
   schema = pkgs.gsettings-desktop-schemas;
 in
 {
-  config = mkIf (config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
-    xdg.systemDirs.data = [ "${schema}/share/gsettings-schemas/${schema.name}" ];
+  # Disable gtk theme on Darwin since it's for Linux
+  # config = mkIf (config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
+  #   xdg.systemDirs.data = [ "${schema}/share/gsettings-schemas/${schema.name}" ];
 
-    home = {
-      packages = [
-        pkgs.glib # gsettings
-      ];
+  #   home = {
+  #     packages = [
+  #       pkgs.glib # gsettings
+  #     ];
 
-      # gtk applications should use xdg specified settings
-      sessionVariables.GTK_USE_PORTAL = "1";
-    };
+  #     # gtk applications should use xdg specified settings
+  #     sessionVariables.GTK_USE_PORTAL = "1";
+  #   };
 
-    gtk = {
-      enable = true;
+  #   gtk = {
+  #     enable = true;
 
-      font = {
-        inherit (cfg.fonts) name size;
-      };
+  #     font = {
+  #       inherit (cfg.fonts) name size;
+  #     };
 
-      gtk2 = {
-        configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-        extraConfig = ''
-          gtk-xft-antialias=1
-          gtk-xft-hinting=1
-          gtk-xft-hintstyle="hintslight"
-          gtk-xft-rgba="rgb"
-        '';
-      };
+  #     gtk2 = {
+  #       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+  #       extraConfig = ''
+  #         gtk-xft-antialias=1
+  #         gtk-xft-hinting=1
+  #         gtk-xft-hintstyle="hintslight"
+  #         gtk-xft-rgba="rgb"
+  #       '';
+  #     };
 
-      gtk3.extraConfig = {
-        # make things look nice
-        gtk-application-prefer-dark-theme = true;
+  #     gtk3.extraConfig = {
+  #       # make things look nice
+  #       gtk-application-prefer-dark-theme = true;
 
-        gtk-decoration-layout = "appmenu:none";
+  #       gtk-decoration-layout = "appmenu:none";
 
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintslight";
+  #       gtk-xft-antialias = 1;
+  #       gtk-xft-hinting = 1;
+  #       gtk-xft-hintstyle = "hintslight";
 
-        # stop annoying sounds
-        gtk-enable-event-sounds = 0;
-        gtk-enable-input-feedback-sounds = 0;
-        gtk-error-bell = 0;
+  #       # stop annoying sounds
+  #       gtk-enable-event-sounds = 0;
+  #       gtk-enable-input-feedback-sounds = 0;
+  #       gtk-error-bell = 0;
 
-        # config that is not the same as gtk4
-        gtk-toolbar-style = "GTK_TOOLBAR_BOTH";
-        gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+  #       # config that is not the same as gtk4
+  #       gtk-toolbar-style = "GTK_TOOLBAR_BOTH";
+  #       gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
 
-        gtk-button-images = 1;
-        gtk-menu-images = 1;
-      };
+  #       gtk-button-images = 1;
+  #       gtk-menu-images = 1;
+  #     };
 
-      gtk4.extraConfig = {
-        # make things look nice
-        gtk-application-prefer-dark-theme = true;
+  #     gtk4.extraConfig = {
+  #       # make things look nice
+  #       gtk-application-prefer-dark-theme = true;
 
-        gtk-decoration-layout = "appmenu:none";
+  #       gtk-decoration-layout = "appmenu:none";
 
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintslight";
+  #       gtk-xft-antialias = 1;
+  #       gtk-xft-hinting = 1;
+  #       gtk-xft-hintstyle = "hintslight";
 
-        # stop annoying sounds again
-        gtk-enable-event-sounds = 0;
-        gtk-enable-input-feedback-sounds = 0;
-        gtk-error-bell = 0;
-      };
-    };
-  };
+  #       # stop annoying sounds again
+  #       gtk-enable-event-sounds = 0;
+  #       gtk-enable-input-feedback-sounds = 0;
+  #       gtk-error-bell = 0;
+  #     };
+  #   };
+  # };
 }

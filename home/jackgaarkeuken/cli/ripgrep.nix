@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.ripgrep = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
 
     # https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
     arguments = [

@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.eza = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
     icons = "auto";
 
     enableNushellIntegration = false;

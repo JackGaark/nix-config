@@ -7,7 +7,11 @@
 let
   inherit (lib) mkForce;
 
-  cfg = config.garden.programs.ghostty;
+  # Set ghostty config directly instead of using config.garden.programs.ghostty
+  cfg = {
+    enable = true;
+    package = pkgs.ghostty;
+  };
 in
 {
   programs.ghostty = {
@@ -29,10 +33,11 @@ in
 
       window-save-state = "always";
 
-      font-family = config.garden.style.fonts.name;
-      font-family-bold = config.garden.style.fonts.bold;
-      font-family-italic = config.garden.style.fonts.italic;
-      font-family-bold-italic = config.garden.style.fonts.bold-italic;
+      # Set fonts directly instead of using config.garden.style.fonts
+      font-family = "JetBrains Mono";
+      font-family-bold = "JetBrains Mono Bold";
+      font-family-italic = "JetBrains Mono Italic";
+      font-family-bold-italic = "JetBrains Mono Bold Italic";
       font-size = 13;
     };
   };

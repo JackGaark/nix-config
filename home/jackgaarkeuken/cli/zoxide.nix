@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.zoxide = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
 
     options = [ "--cmd cd" ];
   };

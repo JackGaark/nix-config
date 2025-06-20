@@ -1,7 +1,7 @@
 { config, ... }:
 {
   programs.fd = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = true;
 
     hidden = true;
     ignores = [

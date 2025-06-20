@@ -5,14 +5,14 @@
   ...
 }:
 let
-  isGui = osClass == "nixos" && config.garden.profiles.graphical.enable;
+  isGui = osClass == "darwin";
 in
 {
   imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
   config = {
     catppuccin = {
-      inherit (config.garden.profiles.workstation) enable;
+      enable = true;
 
       flavor = "mocha";
       accent = "pink";

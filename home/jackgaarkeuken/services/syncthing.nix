@@ -8,7 +8,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  config = mkIf config.garden.profiles.graphical.enable {
+  config = mkIf true {
     services.syncthing = {
       enable = true;
 

@@ -48,7 +48,4 @@ let
   # if we do it the otherway around we will get errors saying mkMerge and so on don't exist
   finalLib = gardenLib.extend ext;
 in
-{
-  # expose our custom lib to the flake
-  flake.lib = finalLib;
-}
+finalLib

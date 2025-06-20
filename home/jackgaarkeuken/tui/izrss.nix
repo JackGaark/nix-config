@@ -1,4 +1,4 @@
 { config, ... }:
 {
-  programs.izrss.enable = config.garden.profiles.workstation.enable;
+  # programs.izrss.enable = true; # config.garden.profiles.workstation.enable;
 }
