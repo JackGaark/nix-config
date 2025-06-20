@@ -2,7 +2,7 @@
   description = "Jack's dotfiles — Darwin + Home Manager + devShell";
 
   inputs = {
-    nixpkgs.url = "https://nixos.org/channels/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     flake-parts = {
       type = "github";
