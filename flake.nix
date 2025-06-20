@@ -69,10 +69,9 @@
 
   outputs = inputs:
     let
-      flake = inputs.flake-parts.lib.mkFlake {
-        inherit inputs;
-        systems = [ "aarch64-darwin" ]; # ✅ This line fixes 'systems' undefined
-      } {
+      flake = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+        # ✅ Correct place for `systems`!
+        systems = [ "aarch64-darwin" ];
         imports = [ ./modules/flake ];
       };
     in
