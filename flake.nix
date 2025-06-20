@@ -1,5 +1,5 @@
 {
-  description = "Jack's dotfiles (Darwin + Home Manager + devShell)";
+  description = "Jack's dotfiles: Darwin + Home Manager + devShells";
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
@@ -69,17 +69,14 @@
 
   outputs = inputs:
     let
+      # ✅ Use flake-parts for devShells, overlays, checks, etc.
       base = inputs.flake-parts.lib.mkFlake { inherit inputs; } {
         systems = [ "aarch64-darwin" ];
         imports = [ ./modules/flake ];
       };
     in
-    # 🚀 This is the key: merge base + manual darwinConfigurations
-    {
-      # Everything flake-parts gives you:
-      inherit (base) packages checks overlays devShells formatter;
-
-      # PLUS your Darwin host:
+    base // {
+      # ✅ Top-level, outside flake-parts:
       darwinConfigurations = {
         jack = inputs.darwin.lib.darwinSystem {
           system = "aarch64-darwin";
@@ -87,7 +84,6 @@
             ./modules/base
             inputs.home-manager.darwinModules.home-manager
             {
-              _module.args.inputs = inputs;
               home-manager.users.jackgaarkeuken = import ./home/jackgaarkeuken;
             }
           ];
